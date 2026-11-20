@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: mediastream:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f766e" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon-192.png" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <title>行程同步・技術驗證</title>
+    <script type="module" crossorigin src="./assets/index-ufdcRHcP.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BZ0yrnUF.css">
+  </head>
+  <body>
+    <main>
+      <h1>行程同步・技術驗證</h1>
+
+      <section>
+        <h2>狀態</h2>
+        <dl class="status">
+          <dt>離線</dt><dd id="st-offline"></dd>
+          <dt>開啟方式</dt><dd id="st-standalone"></dd>
+          <dt>永久儲存</dt><dd id="st-persist"></dd>
+          <dt>資料保留</dt><dd id="st-age"></dd>
+          <dt>掃描引擎</dt><dd id="st-engine"></dd>
+        </dl>
+      </section>
+
+      <section>
+        <h2>1. 身分與配對</h2>
+        <div id="id-new" class="row">
+          <input id="id-name" maxlength="20" placeholder="暱稱" autocomplete="off" />
+          <button id="id-create">建立身分</button>
+        </div>
+        <div id="id-ready" hidden>
+          <p>我是 <b id="id-me"></b>，已配對：<span id="id-peers"></span></p>
+          <button id="id-show">顯示我的配對 QR</button>
+          <p class="hint">測試版的配對 QR 含旅程金鑰；正式版會改成用每個人的公鑰加密分送。</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>2. 產生更新 QR</h2>
+        <textarea id="send-data" rows="8" spellcheck="false"></textarea>
+        <div class="row">
+          <label>糾錯 <select id="send-ec"><option>L</option><option selected>M</option></select></label>
+          <label>每張字元 <input id="send-max" type="number" min="100" max="2500" step="100" value="700" /></label>
+          <label>間隔 ms <input id="send-interval" type="number" min="100" step="50" value="300" /></label>
+        </div>
+        <div class="row">
+          <button id="send-make">產生</button>
+          <button id="send-tamper" class="secondary">產生竄改版</button>
+        </div>
+        <p id="send-error" class="error"></p>
+        <table id="send-stats" hidden><tbody></tbody></table>
+      </section>
+
+      <section id="display" hidden>
+        <p id="qr-label"></p>
+        <canvas id="qr-canvas"></canvas>
+        <button id="qr-close" class="secondary">關閉</button>
+      </section>
+
+      <section>
+        <h2>3. 掃描</h2>
+        <div class="row">
+          <button id="scan-start">開始掃描</button>
+          <button id="scan-stop" class="secondary" hidden>停止</button>
+        </div>
+        <video id="scan-video" playsinline muted hidden></video>
+        <p id="scan-progress"></p>
+        <p id="scan-result"></p>
+      </section>
+
+      <section>
+        <h2>4. 收到的更新</h2>
+        <ol id="log-list" reversed></ol>
+        <button id="log-wipe" class="danger">清除本機所有資料</button>
+      </section>
+    </main>
+  </body>
+</html>
